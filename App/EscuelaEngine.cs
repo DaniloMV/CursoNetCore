@@ -5,7 +5,7 @@ using CoreEscuela.Entidades;
 
 namespace CoreEscuela.Entidades
 {
-    public class EscuelaEngine
+    public sealed class EscuelaEngine
     {
         public Escuela Escuela { get; set; }
 
@@ -37,7 +37,6 @@ namespace CoreEscuela.Entidades
                     //Recorro los Alumnos creados en el Curso
                     foreach (var alumno in curso.Alumnos)
                     {
-                        alumno.Evaluaciones = new List<Evaluacion>();
                         alumno.Evaluaciones.AddRange(CargarEvaluacionAlAzar(alumno, asignatura));
                     }
                 }

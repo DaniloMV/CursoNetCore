@@ -31,10 +31,7 @@ namespace Etapa1
 
              Console.WriteLine(escuela); */
 
-            var escuela = new Escuela("Sisfel", 2021, TiposEscuela.Primaria,
-                   ciudad: "Cuenca", pais: "Ecuador"
-           );
-
+            #region Arreglos
             /* var arregloCursos = new Curso[3];
 
             arregloCursos[0] = new Curso()
@@ -75,12 +72,17 @@ namespace Etapa1
                 new Curso() { Nombre = "201" },
                 new Curso { Nombre = "301" }
             }; */
+            #endregion
 
             /* var listaCursos = new List<Curso>{
                 new Curso { Nombre = "101"},
                 new Curso() { Nombre = "201" },
                 new Curso { Nombre = "301" }
             }; */
+
+            var escuela = new Escuela("Sisfel", 2021, TiposEscuela.Primaria,
+                                                ciudad: "Cuenca", pais: "Ecuador"
+                                        );
 
             escuela.ListaCursos = new List<Curso>{
                 new Curso { Nombre = "101", Jornada = TiposJornada.Manana},

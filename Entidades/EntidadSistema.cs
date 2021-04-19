@@ -2,7 +2,7 @@ using System;
 
 namespace CoreEscuela.Entidades
 {
-    public class EntidadSistema
+    public abstract class EntidadSistema
     {
         //public string UniqueId { get; protected internal set; }
         public string UniqueId { get; private set; }
