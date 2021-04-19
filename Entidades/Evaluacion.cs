@@ -2,7 +2,7 @@ using System;
 
 namespace CoreEscuela.Entidades
 {
-    public class Evaluacion : EntidadSistema
+    public class Evaluacion : ObjetoEscuelaBase
     {
         /////public Evaluacion() => (this.UniqueId) = Guid.NewGuid().ToString();
 

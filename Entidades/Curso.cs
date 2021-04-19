@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CoreEscuela.Entidades
 {
-    public class Curso:EntidadSistema
+    public class Curso:ObjetoEscuelaBase
     {
         /* public string UniqueId { get; private set; }
 

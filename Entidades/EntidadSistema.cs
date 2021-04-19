@@ -2,13 +2,13 @@ using System;
 
 namespace CoreEscuela.Entidades
 {
-    public abstract class EntidadSistema
+    public class ObjetoEscuelaBase
     {
         //public string UniqueId { get; protected internal set; }
         public string UniqueId { get; private set; }
         public string Nombre { get; set; }
 
-        public EntidadSistema()
+        public ObjetoEscuelaBase()
         {
             UniqueId = Guid.NewGuid().ToString();
         }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CoreEscuela.Entidades
 {
-    public class Escuela : EntidadSistema
+    public class Escuela : ObjetoEscuelaBase
     {
         ///public string UniqueId { get; private set; } = Guid.NewGuid().ToString();
         

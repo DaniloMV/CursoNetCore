@@ -6,7 +6,7 @@ namespace CoreEscuela.Entidades
     ///la clase por si misma va funcionar como un objeto.
     public static class Printer
     {
-        public static void DibujarLinea(int tamanio = 10)
+        public static void DrawLine(int tamanio = 10)
         {
             //PadLeft Rellenar a la izquierda.
             string linea = "".PadLeft(tamanio, '=');
@@ -16,9 +16,9 @@ namespace CoreEscuela.Entidades
         public static void WriteTitle(string titulo)
         {
             var tamanio = titulo.Length + 4;
-            DibujarLinea(tamanio);
+            DrawLine(tamanio);
             WriteLine($"| {titulo} |");
-            DibujarLinea(tamanio);
+            DrawLine(tamanio);
         }
 
         public static void Beep(int herstz = 2000, int tiempo = 500, int cantidad = 1)

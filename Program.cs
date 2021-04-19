@@ -8,10 +8,56 @@ namespace Etapa1
     {
         static void Main(string[] args)
         {
+            ///Etapa 5 
+            var engine = new EscuelaEngine();
+            engine.Inicializar();
+            Printer.WriteTitle("==== Etapa 5 ====");
+            //Printer.Beep(1000, cantidad: 10);
+            ///ImprimirCursosEscuelaEtapa4(engine.Escuela);
 
+            Printer.DrawLine(20);
+            Printer.DrawLine(20);
+            Printer.DrawLine(20);
+            Printer.WriteTitle("Prueba de Polimorfismo");
+            var alumnoTest = new Alumno { Nombre = "Claire UnderWood" };
+
+            Printer.WriteTitle("Alumno");
+            WriteLine($"Alumno: {alumnoTest.Nombre}");
+            WriteLine($"Alumno: {alumnoTest.UniqueId}");
+            WriteLine($"Alumno: {alumnoTest.GetType()}");
+
+            ObjetoEscuelaBase ob = alumnoTest;
+            Printer.WriteTitle("ObjetoEscuela");
+            WriteLine($"Alumno: {ob.Nombre}");
+            WriteLine($"Alumno: {ob.UniqueId}");
+            WriteLine($"Alumno: {ob.GetType()}");
+
+            var objDummy = new ObjetoEscuelaBase() { Nombre = "Frank Underwood" };
+            Printer.WriteTitle("ObjetoEscuelaBase");
+            WriteLine($"Alumno: {objDummy.Nombre}");
+            WriteLine($"Alumno: {objDummy.UniqueId}");
+            WriteLine($"Alumno: {objDummy.GetType()}");
+
+            alumnoTest = (Alumno)ob;
+            Printer.WriteTitle("ObjetoEscuela Es un Alumno si puede verlo como un Alumno");
+            WriteLine($"Alumno: {alumnoTest.Nombre}");
+            WriteLine($"Alumno: {alumnoTest.UniqueId}");
+            WriteLine($"Alumno: {alumnoTest.GetType()}");
+
+            ///Este objeto nunca fue un Alumno.
+            ///Nunca podemos hacer que se vea como un objeto hijo.
+            ///ya que fue un objeto Padre
+            ///Ya que no tiene todas las características que tiene el hijo.
+            // alumnoTest = (Alumno)objDummy;
+            // Printer.WriteTitle("ObjetoEscuela Es un Alumno si puede verlo como un Alumno");
+            // WriteLine($"Alumno: {alumnoTest.Nombre}");
+            // WriteLine($"Alumno: {alumnoTest.UniqueId}");
+            // WriteLine($"Alumno: {alumnoTest.GetType()}");
+
+            return;
             ///Etapa 4
 
-            var engine = new EscuelaEngine();
+            /* var engine = new EscuelaEngine();
             engine.Inicializar();
 
             ////Printer.DibujarLinea();
@@ -19,7 +65,7 @@ namespace Etapa1
             Printer.Beep(1000,cantidad:10);
             ImprimirCursosEscuelaEtapa4(engine.Escuela);
 
-            return;
+            return; */
 
             //////////////////Fin Etapa 4
 
