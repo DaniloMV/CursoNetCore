@@ -8,12 +8,23 @@ namespace Etapa1
     {
         static void Main(string[] args)
         {
-            ///Etapa 5 
+            ///Etapa 6
             var engine = new EscuelaEngine();
             engine.Inicializar();
+            Printer.WriteTitle("==== Etapa 6 ====");
+            //Printer.Beep(1000, cantidad: 10);
+            ImprimirCursosEscuelaEtapa4(engine.Escuela);
+
+            var listaObjetos = engine.GetObjetosEscuela();
+
+            return;
+
+            ///Etapa 5 
+            ////var engine = new EscuelaEngine();
+            ////engine.Inicializar();
             Printer.WriteTitle("==== Etapa 5 ====");
             //Printer.Beep(1000, cantidad: 10);
-            ///ImprimirCursosEscuelaEtapa4(engine.Escuela);
+            ImprimirCursosEscuelaEtapa4(engine.Escuela);
 
             Printer.DrawLine(20);
             Printer.DrawLine(20);
@@ -54,7 +65,50 @@ namespace Etapa1
             // WriteLine($"Alumno: {alumnoTest.UniqueId}");
             // WriteLine($"Alumno: {alumnoTest.GetType()}");
 
-            return;
+            var evaluacion = new Evaluacion(){Nombre="Evaluación de Matemáticas", Nota = 4.7f };
+            Printer.WriteTitle("Evaluación");
+            WriteLine($"Evaluación: {evaluacion.Nombre}");
+            WriteLine($"Evaluación: {evaluacion.UniqueId}");
+            WriteLine($"Evaluación: {evaluacion.Nota}");
+            WriteLine($"Evaluación: {evaluacion.GetType()}");
+
+            ob = evaluacion;
+            Printer.WriteTitle("ObjetoEscuela");
+            WriteLine($"Alumno: {ob.Nombre}");
+            WriteLine($"Alumno: {ob.UniqueId}");
+            WriteLine($"Alumno: {ob.GetType()}");
+
+            ///Evaluación no es compatible con Alumno.
+            ///El polimorfismo es bueno nos puede llevar a cometer errores.
+            ///alumnoTest = (Alumno)evaluacion;
+
+            //Si es posible convertirle 
+            if(ob is Alumno)
+            {
+                Alumno alumnoRecuperado = (Alumno)ob;
+            }
+
+            ob = evaluacion;
+            if(ob is Alumno)
+            {
+                Alumno alumnoRecuperado = (Alumno)ob;
+            }
+
+            ///ob as Alumno = Objeto le puede tomar como Alumno (Tome este objeto como si fuera este objeto).
+            ///El me va devolver el objeto transformado como Alumno,
+            ///Pero si objeto no me puede transformar como alumno me va devolver null.
+            Alumno alumnoRecuperado2 = ob as Alumno;
+
+            ///Esto seria una pregunta subsecuente
+
+            if(alumnoRecuperado2 != null)
+            {
+
+            }
+
+
+            ////return;
+
             ///Etapa 4
 
             /* var engine = new EscuelaEngine();

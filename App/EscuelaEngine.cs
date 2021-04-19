@@ -67,6 +67,26 @@ namespace CoreEscuela.Entidades
             return (float)nota;
         }
 
+        public  List<ObjetoEscuelaBase> GetObjetosEscuela()
+        {
+            var listaObj = new List<ObjetoEscuelaBase>();
+            listaObj.Add(Escuela);
+            listaObj.AddRange(Escuela.ListaCursos);
+            foreach (var curso in Escuela.ListaCursos)
+            {
+                listaObj.AddRange(curso.Asignaturas);
+                listaObj.AddRange(curso.Alumnos);
+                foreach (var alumno in curso.Alumnos)
+                {
+                    listaObj.AddRange(alumno.Evaluaciones);
+                }
+            }
+            
+
+
+            return listaObj;
+        }
+
         private void CargarAsignaturas()
         {
             foreach (var curso in Escuela.ListaCursos)
