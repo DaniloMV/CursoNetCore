@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using CoreEscuela.Entidades;
 using static System.Console;
+using System.Linq;
+using CoreEscuela.Interfaces;
 namespace Etapa1
 {
     class Program
@@ -17,9 +19,93 @@ namespace Etapa1
 
             var listaObjetos = engine.GetObjetosEscuela();
 
+            ///engine.Escuela.LimpiarLugar();
+
+            #region INTERFACE vs ABSTRACT CLASS
+            /*
+            INTERFACE vs ABSTRACT CLASS
+
+            1)Access Specifier 1)Especificador de Acceso
+
+            C# INTERFACE
+            In C#, Interface cannot have access specifier for functions. It is public by default.
+            En C#, Interface no puede tener especificador de acceso a funciones, es PUBLICO por defecto.
+
+            C# ABSTRACT CLASS
+            In C#, abstract class can have access specifier for functions.
+            En # La Clase abstracta puede tener especificador de acceso para funciones.
+
+            2) Implementation 2) Implementación
+
+            C# INTERFACE
+            In C#, an interface can only have signature not the implementation.
+            En C#, una interface solo puede tener firma o declaraciones pero no la implementación.
+
+            C# ABSTRACT CLASS
+            Abstract class can provide complete implementation.
+            Una clase abstracta puede proporcionar una implementación completa en su definición.
+
+            3) Speed 3) Velocidad
+
+            C# INTERFACE
+            Interface is comparatively slow.
+            Interface es comparativamente lento.
+
+            C# ABSTRACT CLASS
+            Abstract class is fast.
+            Clase abstracta es rápida.
+
+            4) Instantiate 4) Instanciamiento
+
+            C# INTERFACE
+            Interface is absolutely abstract and cannot be instantiated.
+            la interfaz es absolutamente abstracta y no puede ser instanciada.
+
+            C# ABSTRACT CLASS
+            Abstract class cannot be instantiated.
+            La clase abstracta no puede ser instanciada.
+
+            5) Fields 5) Campos
+
+            C# INTERFACE
+            Interface cannot have fields.
+            La interfaz no puede tener campos.
+
+            C# ABSTRACT CLASS
+            Abstract class can have defined and constants.
+            La clase abstracta puede tener campos definidos y constantes.
+
+            6) Methods 6) Métodos
+
+            C# INTERFACE
+            Interface has only abstract methods.
+            La interfaz solamente tiene métodos abstractos.
+
+            C# ABSTRACT CLASS
+            Abstract class can have non-abstract methods.
+            La clase abstracta puede tener métodos no abstractos.
+            */
+            #endregion
+
+            ///Podemos extender el polimorfismo a travez de Interfaces.
+            ///Debemos pensar las Interfaces de algo más abstracto, que solo objeto de Interfaces de C#
+            ///Hemos utilizado interfaces para cumplir una funcionalidad especifica.
+            ///de los objetos que cumplan con la implementación de la Interfaz.
+            var listaILugar = from obj in listaObjetos
+                              where obj is ILugar
+                              select (ILugar)obj;
+
+            ///La nueva lista me trae solo objetos de Alumnos.
+            var listaAlumnos = from obj in listaObjetos
+                               where obj is Alumno
+                               select (Alumno)obj;
+
             return;
 
-            ///Etapa 5 
+
+
+            ///Inicio Etapa 5 
+            #region Etapa 5
             ////var engine = new EscuelaEngine();
             ////engine.Inicializar();
             Printer.WriteTitle("==== Etapa 5 ====");
@@ -43,11 +129,13 @@ namespace Etapa1
             WriteLine($"Alumno: {ob.UniqueId}");
             WriteLine($"Alumno: {ob.GetType()}");
 
-            var objDummy = new ObjetoEscuelaBase() { Nombre = "Frank Underwood" };
-            Printer.WriteTitle("ObjetoEscuelaBase");
-            WriteLine($"Alumno: {objDummy.Nombre}");
-            WriteLine($"Alumno: {objDummy.UniqueId}");
-            WriteLine($"Alumno: {objDummy.GetType()}");
+            /*
+             ///Una clase abstacta no se puede instanciar si se le quita abstrac es para un ejemplo
+             var objDummy = new ObjetoEscuelaBase() { Nombre = "Frank Underwood" };
+             Printer.WriteTitle("ObjetoEscuelaBase");
+             WriteLine($"Alumno: {objDummy.Nombre}");
+             WriteLine($"Alumno: {objDummy.UniqueId}");
+             WriteLine($"Alumno: {objDummy.GetType()}"); */
 
             alumnoTest = (Alumno)ob;
             Printer.WriteTitle("ObjetoEscuela Es un Alumno si puede verlo como un Alumno");
@@ -65,7 +153,7 @@ namespace Etapa1
             // WriteLine($"Alumno: {alumnoTest.UniqueId}");
             // WriteLine($"Alumno: {alumnoTest.GetType()}");
 
-            var evaluacion = new Evaluacion(){Nombre="Evaluación de Matemáticas", Nota = 4.7f };
+            var evaluacion = new Evaluacion() { Nombre = "Evaluación de Matemáticas", Nota = 4.7f };
             Printer.WriteTitle("Evaluación");
             WriteLine($"Evaluación: {evaluacion.Nombre}");
             WriteLine($"Evaluación: {evaluacion.UniqueId}");
@@ -83,13 +171,13 @@ namespace Etapa1
             ///alumnoTest = (Alumno)evaluacion;
 
             //Si es posible convertirle 
-            if(ob is Alumno)
+            if (ob is Alumno)
             {
                 Alumno alumnoRecuperado = (Alumno)ob;
             }
 
             ob = evaluacion;
-            if(ob is Alumno)
+            if (ob is Alumno)
             {
                 Alumno alumnoRecuperado = (Alumno)ob;
             }
@@ -101,13 +189,15 @@ namespace Etapa1
 
             ///Esto seria una pregunta subsecuente
 
-            if(alumnoRecuperado2 != null)
+            if (alumnoRecuperado2 != null)
             {
 
             }
 
 
             ////return;
+
+            #endregion
 
             ///Etapa 4
 
@@ -131,7 +221,8 @@ namespace Etapa1
 
              Console.WriteLine(escuela); */
 
-            #region Arreglos
+            //////========= Inicio Etapa 3 ==========
+            #region Etapa 3 Arreglos
             /* var arregloCursos = new Curso[3];
 
             arregloCursos[0] = new Curso()
@@ -172,7 +263,7 @@ namespace Etapa1
                 new Curso() { Nombre = "201" },
                 new Curso { Nombre = "301" }
             }; */
-            #endregion
+
 
             /* var listaCursos = new List<Curso>{
                 new Curso { Nombre = "101"},
@@ -297,10 +388,13 @@ namespace Etapa1
                 Directions.Left => Orientation.West,
             };
             Console.WriteLine($"Cardinal orientation is {orientation}"); */
+
+            #endregion
+
         }
 
         //////========= Inicio Etapa 4 ==========
-
+        #region Etapa 4
         private static void ImprimirCursosEscuelaEtapa4(Escuela escuela)
         {
             WriteLine("===========");
@@ -315,9 +409,11 @@ namespace Etapa1
                 }
             }
         }
-
+        #endregion
         /////========== Fin Etapa 4 ==========
 
+        //////========= Inicio Etapa 3 ==========
+        #region Etapa 3
         ///Va llamar a este método o función por cada uno de los cursos que esta en la lista 
         ///va preguntar este objeto que se le paso a esta función tiene nombre 301.
         ///el que retorne verdadero es el que va borrar.
@@ -374,6 +470,9 @@ namespace Etapa1
                 }
             } */
         }
+        #endregion
+
+        #region Loop
         private static void ImprimirCursosWhile(Curso[] arregloCursos)
         {
             int contador = 0;
@@ -383,7 +482,6 @@ namespace Etapa1
                 contador++;
             }
         }
-
         private static void ImprimirCursosDoWhile(Curso[] arregloCursos)
         {
             int contador = 0;
@@ -393,7 +491,6 @@ namespace Etapa1
                 contador++;
             } while (contador < arregloCursos.Length);
         }
-
         private static void ImprimirCursosFor(Curso[] arregloCursos)
         {
             for (int i = 0; i < arregloCursos.Length; i++)
@@ -401,7 +498,6 @@ namespace Etapa1
                 Console.WriteLine($"Nombre {arregloCursos[i].Nombre}, id {arregloCursos[i].UniqueId}");
             }
         }
-
         private static void ImprimirCursosForEach(Curso[] arregloCursos)
         {
             foreach (var curso in arregloCursos)
@@ -409,7 +505,9 @@ namespace Etapa1
                 Console.WriteLine($"Nombre {curso.Nombre}, id {curso.UniqueId}");
             }
         }
+        #endregion
 
+        #region Enum
         public enum Directions
         {
             Up,
@@ -425,6 +523,7 @@ namespace Etapa1
             East,
             West
         }
+        #endregion 
 
     }
 }

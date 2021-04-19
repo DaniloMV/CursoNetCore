@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using CoreEscuela.Interfaces;
 
 namespace CoreEscuela.Entidades
 {
-    public class Curso:ObjetoEscuelaBase
+    public class Curso : ObjetoEscuelaBase, ILugar
     {
         /* public string UniqueId { get; private set; }
 
@@ -14,6 +15,14 @@ namespace CoreEscuela.Entidades
         public List<Asignatura> Asignaturas { get; set; }
 
         public List<Alumno> Alumnos { get; set; }
+        public string Direccion { get; set; }
+
+        public void LimpiarLugar()
+        {
+            Printer.DrawLine();
+            Console.WriteLine("Limpiando Establecimiento....");
+            Console.WriteLine($"Curso { Nombre } Limpio");
+        }
 
         /* public Curso()
         {
