@@ -4,7 +4,7 @@ namespace CoreEscuela.Entidades
 {
     public class Evaluacion : EntidadSistema
     {
-        public Evaluacion() => (this.UniqueId) = Guid.NewGuid().ToString();
+        /////public Evaluacion() => (this.UniqueId) = Guid.NewGuid().ToString();
 
         ///La evaluación debe ser presentada por un Alumno, esta evaluación
         ///fue presentada por una Persona 
