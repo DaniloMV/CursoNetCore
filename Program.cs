@@ -10,14 +10,81 @@ namespace Etapa1
     {
         static void Main(string[] args)
         {
-            ///Etapa 6
+            ///Inicio de la Etapa 7 Funcionalidades Variables de Salida, Diccionario de Datos
+            #region Etapa 7
             var engine = new EscuelaEngine();
+            engine.Inicializar();
+            Printer.WriteTitle("==== Etapa 7 ====");
+            //Printer.Beep(1000, cantidad: 10);
+            ImprimirCursosEscuelaEtapa4(engine.Escuela);
+            //Ya no es una lista es una tupla una colección de dos valores.
+
+            var listaObjetosSinEvaluciones = engine.GetObjetosEscuela(isTraeEvaluaciones: false);
+
+            var listaObjetosEvaluacionesConteo = engine.GetObjetosEscuela(
+                true, false, false, false);
+
+            var listaObjetos = engine.GetObjetosEscuela(
+                out int conteoEvaluaciones,
+                out int conteoAlumnos,
+                out int conteoAsignaturas,
+                out int conteoCursos,
+                true, false, false, false);
+            ///Aca si me permite agregar ya que no es de solo lectura
+            listaObjetos.Add(new Evaluacion { Nombre = "Curso Loco" });
+
+            var listaObjetosLectura = engine.GetObjetosEscuelaLectura(
+                out conteoEvaluaciones,
+                out conteoAlumnos,
+                out conteoAsignaturas,
+                out conteoCursos,
+                true, false, false, false);
+
+            ///Yo trato de adicionar una Evaluación me sale una advertencia ya que es solo de lectura
+            ////listaObjetosLectura.Add( new Evaluacion{Nombre="Curso Loco"});
+
+            Dictionary<int, string> diccionario = new Dictionary<int, string>();
+            diccionario.Add(10, "Danilo");
+            diccionario.Add(23, "Pedro Cando");
+            ///Tambien puedo adicionar objetos de esta manera.
+            diccionario[0]="Pekerman";
+
+            foreach (var keyvalorPair in diccionario)
+            {
+                WriteLine($"key: {keyvalorPair.Key}, Valor: {keyvalorPair.Value}");
+            }
+
+            Printer.WriteTitle("Acceso a Diccionario");
+            ///Me devuelve una cadena
+            WriteLine(diccionario[23]);
+            WriteLine(diccionario[0]);
+            Printer.WriteTitle("Otro Diccionario");
+            ///Diciconario Polimórfico: Que tiene o puede tener varias formas.
+            var dic = new Dictionary<string,string>();
+
+            dic["Luna"] ="Cuerpo celeste que gira al rededor de Planeta Tierra.";
+
+            foreach (var keyvalorPair in dic)
+            {
+                WriteLine($"key: {keyvalorPair.Key}, Valor: {keyvalorPair.Value}");
+            }
+            ///Las llaves en los diccionarios son irrepetibles.
+            dic["Luna"] = "Protagonista de Soy Luna";
+            WriteLine(dic["Luna"]);
+            return;
+
+            #endregion
+
+
+            ///Inicio de la Etapa #6 Interfaces
+            #region Etapa 6
+            ////var engine = new EscuelaEngine();
             engine.Inicializar();
             Printer.WriteTitle("==== Etapa 6 ====");
             //Printer.Beep(1000, cantidad: 10);
             ImprimirCursosEscuelaEtapa4(engine.Escuela);
 
-            var listaObjetos = engine.GetObjetosEscuela();
+            ////var listaObjetos = engine.GetObjetosEscuela();
 
             ///engine.Escuela.LimpiarLugar();
 
@@ -100,11 +167,10 @@ namespace Etapa1
                                where obj is Alumno
                                select (Alumno)obj;
 
-            return;
+            ///return;
+            #endregion
 
-
-
-            ///Inicio Etapa 5 
+            ///Inicio Etapa 5 Herencia - Polimorfismo
             #region Etapa 5
             ////var engine = new EscuelaEngine();
             ////engine.Inicializar();
@@ -199,8 +265,8 @@ namespace Etapa1
 
             #endregion
 
-            ///Etapa 4
-
+            ///Etapa 4 Generar Colecciones
+            #region Etapa 4
             /* var engine = new EscuelaEngine();
             engine.Inicializar();
 
@@ -210,9 +276,10 @@ namespace Etapa1
             ImprimirCursosEscuelaEtapa4(engine.Escuela);
 
             return; */
+            #endregion
 
-            //////////////////Fin Etapa 4
-
+            //////========= Inicio Etapa 3  Arreglos ==========
+            #region Etapa 3
 
             /*  var escuela = new Escuela("Sisfel", 2021);
              escuela.Pais="Ecuador";
@@ -221,8 +288,7 @@ namespace Etapa1
 
              Console.WriteLine(escuela); */
 
-            //////========= Inicio Etapa 3 ==========
-            #region Etapa 3 Arreglos
+
             /* var arregloCursos = new Curso[3];
 
             arregloCursos[0] = new Curso()
@@ -393,7 +459,7 @@ namespace Etapa1
 
         }
 
-        //////========= Inicio Etapa 4 ==========
+
         #region Etapa 4
         private static void ImprimirCursosEscuelaEtapa4(Escuela escuela)
         {
@@ -410,9 +476,8 @@ namespace Etapa1
             }
         }
         #endregion
-        /////========== Fin Etapa 4 ==========
 
-        //////========= Inicio Etapa 3 ==========
+
         #region Etapa 3
         ///Va llamar a este método o función por cada uno de los cursos que esta en la lista 
         ///va preguntar este objeto que se le paso a esta función tiene nombre 301.
