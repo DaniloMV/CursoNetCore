@@ -26,6 +26,83 @@ namespace CoreEscuela.Entidades
 
         }
 
+        public void ImprimirDiccionario(Dictionary<LlaveDiccionario, IEnumerable<ObjetoEscuelaBase>> diccionario,
+                        bool isImprimirEvaluacion = false)
+        {
+            foreach (var objetodiccionario in diccionario)
+            {
+                Printer.WriteTitle(objetodiccionario.Key.ToString());
+
+                foreach (var valor in objetodiccionario.Value)
+                {
+                    switch (objetodiccionario.Key)
+                    {
+                        case LlaveDiccionario.Evaluacion:
+                            if (isImprimirEvaluacion)
+                                Console.WriteLine(valor);
+                            break;
+                        case LlaveDiccionario.Escuela:
+                            Console.WriteLine($"Escuela: {valor}");
+                            break;
+                        case LlaveDiccionario.Curso:
+                            var cursotemporal = valor as Curso;
+                            if (cursotemporal != null)
+                            {
+                                ////int cantidadAlumnos = ((Curso)valor).Alumnos.Count;
+                                Console.WriteLine($"Curso: {valor.Nombre}, Cantidad Alumnos: { cursotemporal.Alumnos.Count }");
+                            }
+                            break;
+                        case LlaveDiccionario.Alumno:
+                            Console.WriteLine($"Alumno: {valor}");
+                            break;
+                        default:
+                            Console.WriteLine(valor);
+                            break;
+                    }
+
+                    /* if (valor is Evaluacion)
+                    {
+                        if (isImprimirEvaluacion)
+                            Console.WriteLine(valor);
+                    }
+                    else if (valor is Escuela)
+                        Console.WriteLine($"Escuela: {valor}");
+                    else if (valor is Alumno)
+                        Console.WriteLine($"Alumno: {valor}");
+                    else
+                        Console.WriteLine(valor); */
+                }
+            }
+        }
+        public Dictionary<LlaveDiccionario, IEnumerable<ObjetoEscuelaBase>> GetDiccionarioObjetos()
+        {
+            var diccionario = new Dictionary<LlaveDiccionario, IEnumerable<ObjetoEscuelaBase>>();
+            diccionario.Add(LlaveDiccionario.Escuela, new[] { Escuela });
+            diccionario.Add(LlaveDiccionario.Curso, Escuela.ListaCursos);
+
+            var listaTemporalAsignaturas = new List<Asignatura>();
+            var listaTemporalAlumnos = new List<Alumno>();
+            var listaTemporalEvaluaciones = new List<Evaluacion>();
+
+            foreach (var curso in Escuela.ListaCursos)
+            {
+                listaTemporalAsignaturas.AddRange(curso.Asignaturas);
+                listaTemporalAlumnos.AddRange(curso.Alumnos);
+                curso.Alumnos.ForEach(alumno =>
+                    listaTemporalEvaluaciones.AddRange(alumno.Evaluaciones));
+
+                /* foreach (var alumno in curso.Alumnos)
+                {
+                    listaTemporalEvaluaciones.AddRange(alumno.Evaluaciones);
+                } */
+            }
+
+            diccionario.Add(LlaveDiccionario.Asignatura, listaTemporalAsignaturas);
+            diccionario.Add(LlaveDiccionario.Alumno, listaTemporalAlumnos.Cast<ObjetoEscuelaBase>());
+            diccionario.Add(LlaveDiccionario.Evaluacion, listaTemporalEvaluaciones);
+            return diccionario;
+        }
+
         public List<ObjetoEscuelaBase> GetObjetosEscuela(
           bool isTraeEvaluaciones = true,
           bool isTraeAlumnos = true,

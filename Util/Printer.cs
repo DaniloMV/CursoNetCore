@@ -13,6 +13,11 @@ namespace CoreEscuela.Entidades
             WriteLine(linea);
         }
 
+        public static void PresioneEnter()
+        {
+            WriteLine("Presione enter para continuar.");
+        }
+
         public static void WriteTitle(string titulo)
         {
             var tamanio = titulo.Length + 4;

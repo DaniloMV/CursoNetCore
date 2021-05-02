@@ -4,15 +4,127 @@ using CoreEscuela.Entidades;
 using static System.Console;
 using System.Linq;
 using CoreEscuela.Interfaces;
+using CoreEscuela.App;
+using System.Text;
+
 namespace Etapa1
 {
     class Program
     {
         static void Main(string[] args)
         {
+            ///Etapa 9
+
+            Printer.WriteTitle("Captura de una evaluación por Consola.");
+
+            var newEval = new Evaluacion();
+
+            string nombre, notaEvaluacion;
+            float nota;
+
+
+            WriteLine("Ingrese el nombre de la evaluación.");
+            Printer.PresioneEnter();
+            nombre = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(nombre))
+            {
+                ///throw new ArgumentException("El valor del nombre no puede ser nulo.");
+                Printer.WriteTitle("El valor del nombre no puede ser vacío");
+                WriteLine("Saliendo del programa");
+            }
+            else
+            {
+                newEval.Nombre = nombre.ToLower();
+                WriteLine("El nombre de la evaluación ha sido creada correctamente.");
+            }
+
+            WriteLine("Ingrese la nota de la evaluación.");
+            Printer.PresioneEnter();
+            notaEvaluacion = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(notaEvaluacion))
+            {
+                ////throw new ArgumentException("El valor de la nota no puede ser vacío.");
+                Printer.WriteTitle("El valor de la nota no puede ser vacío");
+                WriteLine("Saliendo del programa");
+
+            }
+            else
+            {
+                try
+                {
+                    newEval.Nota = float.Parse(notaEvaluacion);
+
+                    if (newEval.Nota < 0 || newEval.Nota > 5)
+                    {
+                        throw new ArgumentOutOfRangeException("la nota debe estar entre 0 y 5");
+                    }
+                    WriteLine("La nota de la evaluación ha sido ingresada correctamente.");
+                }
+                catch (ArgumentOutOfRangeException arge)
+                {
+                    Printer.WriteTitle(arge.Message);
+                    WriteLine("Saliendo del programa");
+                }
+                catch (Exception)
+                {
+                    Printer.WriteTitle("El valor de la nota no es número valido. ");
+                    WriteLine("Saliendo del programa");
+                }
+                finally
+                {
+                    Printer.WriteTitle("Finalmente");
+                    Printer.Beep(2500, 500, 3);
+                }
+            }
+
+            return;
+
+
+
+            #region Etapa 8
+            var engine = new EscuelaEngine();
+            engine.Inicializar();
+            Printer.WriteTitle("==== Etapa 8 ====");
+
+            //Para que me visualice el mensaje de error.
+            ////var reporteador = new Reporteador(null);
+
+            var reporteador = new Reporteador(engine.GetDiccionarioObjetos());
+            var evaluacionesList = reporteador.GetListaEvaluaciones();
+
+            ///Nos importa la lista de asignaturas que han sido evaluadas 3.0f no me importa si han sido evaluadas varias veces.
+            var listaAsignaturas = reporteador.GetListaAsignaturas();
+            var listaEvaXAsig = reporteador.GetDicEvaluacionesXAsignatura();
+            var listaPromedioXAsig = reporteador.GetPromedioAlumnoPorAsignatura();
+
+
+            var listaPromedioXAsigTop5 = reporteador.GetPromedioAlumnoPorAsignaturaTop(5);
+
+            return;
+
+            #endregion
+
+
             ///Inicio de la Etapa 7 Funcionalidades Variables de Salida, Diccionario de Datos
             #region Etapa 7
-            var engine = new EscuelaEngine();
+
+            ///Un evento genera varias acciones, este evento se dispara cada vez que finaliza la aplicación
+            ///cada vez que ocurre este evento haga algo.
+            AppDomain.CurrentDomain.ProcessExit += AccionDelEvento;
+            ///Es sumale a lo que ya tiene es como una sobre carga del operador.
+            ///Tengo mi controlador de Eventos, sumele a lo que ya hice.
+            ///vamos a colocarle como una expresión lamda 
+            ///vamos a poner un pitido diferente, Necesito tener la firma del Evento
+            ///un objeto y unos argumentos, asi no los tenga me va pedir (0,s)
+            ///Lo que se puede decir es un multicast delegate que recibe muchos delegados.
+            AppDomain.CurrentDomain.ProcessExit += (o, s) => Printer.Beep(2000, 1000, 1);
+            ///Ya no quiero este manejador de Evento o este predicado.
+            AppDomain.CurrentDomain.ProcessExit -= AccionDelEvento;
+
+
+            ///var engine = new EscuelaEngine();
             engine.Inicializar();
             Printer.WriteTitle("==== Etapa 7 ====");
             //Printer.Beep(1000, cantidad: 10);
@@ -47,7 +159,7 @@ namespace Etapa1
             diccionario.Add(10, "Danilo");
             diccionario.Add(23, "Pedro Cando");
             ///Tambien puedo adicionar objetos de esta manera.
-            diccionario[0]="Pekerman";
+            diccionario[0] = "Pekerman";
 
             foreach (var keyvalorPair in diccionario)
             {
@@ -60,9 +172,9 @@ namespace Etapa1
             WriteLine(diccionario[0]);
             Printer.WriteTitle("Otro Diccionario");
             ///Diciconario Polimórfico: Que tiene o puede tener varias formas.
-            var dic = new Dictionary<string,string>();
+            var dic = new Dictionary<string, string>();
 
-            dic["Luna"] ="Cuerpo celeste que gira al rededor de Planeta Tierra.";
+            dic["Luna"] = "Cuerpo celeste que gira al rededor de Planeta Tierra.";
 
             foreach (var keyvalorPair in dic)
             {
@@ -71,6 +183,15 @@ namespace Etapa1
             ///Las llaves en los diccionarios son irrepetibles.
             dic["Luna"] = "Protagonista de Soy Luna";
             WriteLine(dic["Luna"]);
+
+            var diccionariotemporal = engine.GetDiccionarioObjetos();
+
+            engine.ImprimirDiccionario(diccionariotemporal, true);
+
+
+
+
+
             return;
 
             #endregion
@@ -459,6 +580,15 @@ namespace Etapa1
 
         }
 
+        #region Etapa 7
+        ///Este es un apuntador a una función de un delegado.
+        private static void AccionDelEvento(object sender, EventArgs e)
+        {
+            Printer.WriteTitle("SALIENDO");
+            Printer.Beep(3000, 1000, 3);
+            Printer.WriteTitle("SALIÓ");
+        }
+        #endregion
 
         #region Etapa 4
         private static void ImprimirCursosEscuelaEtapa4(Escuela escuela)
@@ -570,6 +700,8 @@ namespace Etapa1
                 Console.WriteLine($"Nombre {curso.Nombre}, id {curso.UniqueId}");
             }
         }
+
+
         #endregion
 
         #region Enum
